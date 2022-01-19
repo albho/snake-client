@@ -1,4 +1,5 @@
 const net = require("net");
+const CLIENT_NAME = "ALB";
 
 // establishes a connection with the game server
 const connect = function () {
@@ -10,15 +11,16 @@ const connect = function () {
   // interpret incoming data as text
   conn.setEncoding("utf8");
 
-  conn.on("connect", msg => {
+  conn.on("connect", () => {
     console.log("Connected!");
+    conn.write(`Name: ${CLIENT_NAME}`);
   });
 
   conn.on("data", msg => {
     console.log(`Server message: ${msg}`);
   });
 
-  conn.on("end", msg => {
+  conn.on("end", () => {
     console.log("Ended!");
   });
 
